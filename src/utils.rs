@@ -12,8 +12,7 @@ pub fn get_metadata_by_mint(
 ) -> Result<Metadata, Box<dyn std::error::Error>> {
     let (pub_key, _) = Metadata::find_pda(mint);
     let account_data = client.get_account_data(&pub_key)?;
-    Metadata::safe_deserialize(&account_data)
-        .map_err(|e| Box::new(e) as Box<dyn std::error::Error>)
+    Metadata::safe_deserialize(&account_data).map_err(|e| Box::new(e) as Box<dyn std::error::Error>)
 }
 
 pub fn get_transaction_details(
@@ -22,7 +21,7 @@ pub fn get_transaction_details(
 ) -> Result<EncodedConfirmedTransactionWithStatusMeta, Box<dyn std::error::Error>> {
     let signature = Signature::from_str(tx_id).unwrap();
     client
-        .get_transaction(&signature, UiTransactionEncoding::Json)
+        .get_transaction(&signature, UiTransactionEncoding::JsonParsed)
         .map_err(|e| Box::new(e) as Box<dyn std::error::Error>)
 }
 
