@@ -1,0 +1,9 @@
+[package]
+name = "sol_tracker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mpl-token-metadata = "4.1.2"
+solana-client = "1.18.25"
+solana-program = "1.18.25"
