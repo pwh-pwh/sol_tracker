@@ -43,7 +43,7 @@ pub fn get_lastest_transaction_signature(client: &RpcClient, address: &Pubkey) -
     };
     let result = client.get_signatures_for_address_with_config(address, config);
     if let Ok(signatures) = result {
-        Some(signatures.first().unwrap().signature.clone())
+        signatures.first().map(|s| s.signature.to_string())
     } else {
         None
     }
@@ -83,12 +83,16 @@ pub fn calculate_transaction_info(
                 buyer = post_owner;
                 change_amount = post_amount - pre_amount;
                 mint = &post.mint;
-                break;
+                if !almost_equal(post_amount,pre_amount) {
+                    break
+                }
             } else {
                 seller = post_owner;
                 change_amount = pre_amount - post_amount;
                 mint = &post.mint;
-                break;
+                if !almost_equal(post_amount,pre_amount) {
+                    break
+                }
             }
         }
     }
@@ -103,4 +107,9 @@ pub fn calculate_transaction_info(
     } else {
         (change_amount, mint.to_string(), TypeTransaction::Sell)
     }
+}
+
+pub fn almost_equal(a: f64, b: f64) -> bool {
+    let epsilon = 1e-10;
+    (a - b).abs() < epsilon
 }

@@ -41,7 +41,10 @@ impl EncodedConfirmedTransactionMetaInfo for EncodedConfirmedTransactionWithStat
         match &self.transaction.meta {
             None => None,
             Some(meta) => match &meta.pre_token_balances {
-                OptionSerializer::Some(tb) => Some(tb.clone()),
+                OptionSerializer::Some(tb) => if tb.len() == 0 { None }
+                else {
+                    Some(tb.clone())
+                },
                 _ => None,
             },
         }
@@ -51,7 +54,10 @@ impl EncodedConfirmedTransactionMetaInfo for EncodedConfirmedTransactionWithStat
         match &self.transaction.meta {
             None => None,
             Some(meta) => match &meta.post_token_balances {
-                OptionSerializer::Some(tb) => Some(tb.clone()),
+                OptionSerializer::Some(tb) => if tb.len() == 0 { None }
+                else {
+                    Some(tb.clone())
+                },
                 _ => None,
             },
         }
