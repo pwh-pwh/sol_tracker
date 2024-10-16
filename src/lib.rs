@@ -1,7 +1,7 @@
 use solana_transaction_status::option_serializer::OptionSerializer;
 use solana_transaction_status::{
-    EncodedConfirmedTransactionWithStatusMeta, EncodedTransaction, UiMessage
-    , UiTransactionTokenBalance,
+    EncodedConfirmedTransactionWithStatusMeta, EncodedTransaction, UiMessage,
+    UiTransactionTokenBalance,
 };
 
 pub mod utils;
